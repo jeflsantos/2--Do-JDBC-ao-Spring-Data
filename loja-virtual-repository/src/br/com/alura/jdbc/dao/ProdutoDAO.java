@@ -19,7 +19,7 @@ public class ProdutoDAO {
 	}
 	
 	public void salvar(Produto produto) throws SQLException {
-		String sql = "INSERT INTO PRODUTO (NOME, DESCRICACAO) VALUES (?, ?)";
+		String sql = "INSERT INTO PRODUTO (NOME, DESCRICAO) VALUES (?, ?)";
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 			
@@ -40,7 +40,7 @@ public class ProdutoDAO {
 		public List<Produto> listar() throws SQLException{
 			List<Produto> produtos = new ArrayList<>();
 			
-			String sql = "SELECT ID, NOME, DESCRICACAO FROM PRODUTO";
+			String sql = "SELECT ID, NOME, DESCRICAO FROM PRODUTO";
 			
 			try(PreparedStatement pstm = connection.prepareStatement(sql)){
 				pstm.execute();

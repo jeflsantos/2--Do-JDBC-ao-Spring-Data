@@ -14,7 +14,7 @@ public class TestaInsercaoComParamentro {
 		
 		connection.setAutoCommit(false);
 		
-		try (PreparedStatement stm = connection.prepareStatement("INSERT INTO PRODUTO (nome, descricacao) VALUES (?, ?)", 
+		try (PreparedStatement stm = connection.prepareStatement("INSERT INTO PRODUTO (nome, descricao) VALUES (?, ?)", 
 				Statement.RETURN_GENERATED_KEYS);){
 			
 			
