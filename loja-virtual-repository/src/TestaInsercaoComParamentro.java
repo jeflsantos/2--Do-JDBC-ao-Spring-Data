@@ -9,21 +9,18 @@ public class TestaInsercaoComParamentro {
 	public static void main(String[] args) throws SQLException {
 
 		ConnectionFactory factory = new ConnectionFactory();
-		Connection connection = factory.recuperarConexao();
+		try (Connection connection = factory.recuperarConexao()){
 		
 		connection.setAutoCommit(false);
 		
-		try {
-			PreparedStatement stm = connection.prepareStatement("INSERT INTO PRODUTO (nome, descricacao) VALUES (?, ?)", 
-					Statement.RETURN_GENERATED_KEYS);
+		try (PreparedStatement stm = connection.prepareStatement("INSERT INTO PRODUTO (nome, descricacao) VALUES (?, ?)", 
+				Statement.RETURN_GENERATED_KEYS);){
+			
 			
 			adicionarVariavel("SmartTv", "45 polegadas", stm);
 			adicionarVariavel("Radio", "Radio de Bateria", stm);
 
 			connection.commit();
-			
-			stm.close();
-			connection.close();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -31,7 +28,7 @@ public class TestaInsercaoComParamentro {
 			connection.rollback();
 			}
 		}
-		
+	}	
 
 		
 		
@@ -41,11 +38,11 @@ public class TestaInsercaoComParamentro {
 		
 		stm.execute();
 		
-		ResultSet rst = stm.getGeneratedKeys();
+		try (ResultSet rst = stm.getGeneratedKeys()){
 		while (rst.next()) {
 			Integer id = rst.getInt(1);
 			System.out.println("O ID criado foi: " +id);
-			
+			}
 		}
 	}
 
