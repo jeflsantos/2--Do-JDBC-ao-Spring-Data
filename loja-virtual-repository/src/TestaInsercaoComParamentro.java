@@ -8,17 +8,20 @@ public class TestaInsercaoComParamentro {
 
 	public static void main(String[] args) throws SQLException {
 
-		String nome = "Mouse";
-		String descricao = "Mouse sem fio";
-
 		ConnectionFactory factory = new ConnectionFactory();
 		Connection connection = factory.recuperarConexao();
 		
 		
 		
-		PreparedStatement stm = connection.prepareStatement("INSERT INTO PRODUTO (nome, descricacao) VALUES ('" +nome + "', '" +descricao + "')", 
+		PreparedStatement stm = connection.prepareStatement("INSERT INTO PRODUTO (nome, descricacao) VALUES (?, ?)", 
 				Statement.RETURN_GENERATED_KEYS);
 		
+		adicionarVariavel("SmartTv", "45 polegadas", stm);
+		adicionarVariavel("Radio", "Radio de Bateria", stm);
+
+	}
+
+	private static void adicionarVariavel(String nome, String descricao, PreparedStatement stm) throws SQLException {
 		stm.setString(1, nome);
 		stm.setString(2, descricao);
 		
@@ -30,7 +33,6 @@ public class TestaInsercaoComParamentro {
 			System.out.println("O ID criado foi: " +id);
 			
 		}
-
 	}
 
 }
