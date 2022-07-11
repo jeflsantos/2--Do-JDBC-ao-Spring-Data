@@ -16,6 +16,8 @@ public class ConnectionFactory {
 		cpds.setUser("jefferson");
 		cpds.setPassword("Ninaluna3802@");
 		
+		cpds.setMaxPoolSize(15);
+		
 		this.dataSource = cpds;
 		
 	}
