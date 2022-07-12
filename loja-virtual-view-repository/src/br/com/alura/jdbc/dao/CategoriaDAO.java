@@ -41,12 +41,14 @@ public class CategoriaDAO {
 		}
 	}
 
-	public List<Categoria> listarComProduto() throws SQLException {
-		Categoria ultima = null;
-		List<Categoria> categorias = new ArrayList<>();
+	public List<Categoria> listarComProduto()  {
+		try {
+			Categoria ultima = null;
+			List<Categoria> categorias = new ArrayList<>();
 
-		String sql = "SELECT C.ID, C.NOME, P.ID, P.NOME, P.DESCRICAO " + "FROM CATEGORIA C "
-				+ "INNER JOIN PRODUTO P ON C.ID = P.CATEGORIA_ID";
+			String sql = "SELECT C.ID, C.NOME, P.ID, P.NOME, P.DESCRICAO " + "FROM CATEGORIA C "
+					+ "INNER JOIN PRODUTO P ON C.ID = P.CATEGORIA_ID";
+		
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 			pstm.execute();
@@ -64,6 +66,10 @@ public class CategoriaDAO {
 				}
 			}
 			return categorias;
+			}
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
 		}
 	}
+	
 }
