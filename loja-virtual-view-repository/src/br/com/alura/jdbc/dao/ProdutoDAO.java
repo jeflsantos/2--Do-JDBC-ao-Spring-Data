@@ -118,15 +118,13 @@ public class ProdutoDAO {
 		}
 	}
 
-	private void trasformarResultSetEmProduto(List<Produto> produtos, PreparedStatement pstm)  {
+	private void trasformarResultSetEmProduto(List<Produto> produtos, PreparedStatement pstm) throws SQLException  {
 		try (ResultSet rst = pstm.getResultSet()) {
 			while (rst.next()) {
 				Produto produto = new Produto(rst.getInt(1), rst.getString(2), rst.getString(3));
 
 				produtos.add(produto);
 			}
-		}catch(SQLException e) {
-			throw new RuntimeException(e);
 		}
 	}
 }
